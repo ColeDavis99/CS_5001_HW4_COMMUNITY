@@ -14,9 +14,10 @@ fin=open("GameOfThrones.txt", 'rb')
 G = nx.read_edgelist('GameOfThrones.txt', nodetype=str, delimiter=",", data=(("weight", int),("season", int)))
 fin.close()
 
-print(list(G.nodes()))
+for node1, node2, edge in (G.edges(data=True)):
+	print(node1, node2, edge["weight"])
 
-#drawGraph(G)
+drawGraph(G)
 
 
 '''
