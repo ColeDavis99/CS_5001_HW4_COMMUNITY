@@ -9,15 +9,46 @@ def drawGraph(g):
 	plt.axis('off')
 	plt.show()
 
-#Read in Data from file
+'''
+################################################
+Step 1:
+Create and display graph
+################################################'''
 fin=open("GameOfThrones.txt", 'rb')
 G = nx.read_edgelist('GameOfThrones.txt', nodetype=str, delimiter=",", data=(("weight", int),("season", int)))
 fin.close()
 
-for node1, node2, edge in (G.edges(data=True)):
-	print(node1, node2, edge["weight"])
+#drawGraph(G)
 
-drawGraph(G)
+
+'''
+################################################
+Step 2 output:
+a) No. of maximal cliques
+b) Size of largest maximal clique
+c) No. of maximal cliques of the largest size
+##################################################'''
+maxCliques = nx.find_cliques(G)
+biggestClique = 0
+numBiggestCliques = 0
+
+ctr = 0
+for clique in maxCliques:
+	ctr += 1
+	if(len(clique) > biggestClique):
+		biggestClique = len(clique)	
+	
+print("Number of Maximal Cliques: " + str(ctr))
+print("Size of Largest Maximal Clique: " + str(biggestClique))
+
+#Could only loop through generator once, so just remake it
+maxCliques = nx.find_cliques(G)
+ctr=0
+for clique in maxCliques:
+	if(len(clique) == biggestClique):
+		ctr += 1
+print("Number of maximal cliques of largest size: " + str(ctr))
+
 
 
 '''
