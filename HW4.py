@@ -59,8 +59,24 @@ b) K-value that gives the main core
 c) Display main core with nodes labeled
 ##################################################'''
 mainCore = nx.k_core(G).nodes()
-print("Number of nodes in main core: " + str(len(mainCore)))
+mainCoreEdges = nx.k_core(G).edges()
+nodeCoreDict = nx.core.core_number(G)
 
+print("\nNumber of nodes in main core: " + str(len(mainCore)))
+
+maxKValue = 0
+for node in nodeCoreDict:
+	if(nodeCoreDict[node] > maxKValue):
+		maxKValue = nodeCoreDict[node]
+		
+print("K value that gives the main core: " + str(maxKValue))
+
+#Create subgraph that contains just the main core
+coreGraph = nx.Graph()
+for edge in mainCoreEdges:
+	coreGraph.add_edge(edge[0], edge[1])
+
+drawGraph(coreGraph)
 
 
 
