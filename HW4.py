@@ -76,8 +76,17 @@ coreGraph = nx.Graph()
 for edge in mainCoreEdges:
 	coreGraph.add_edge(edge[0], edge[1])
 
-drawGraph(coreGraph)
+#drawGraph(coreGraph)
 
+
+
+'''
+################################################
+Step 4 output:
+a) Number of nodes in the main crust
+##################################################'''
+print("\nNumber of nodes in the main crust: " + str(len(nx.k_crust(G).nodes())))
+# print("\nNumber of nodes in the main crust: " + str(len(list(nx.k_crust(G).nodes()))))
 
 
 
