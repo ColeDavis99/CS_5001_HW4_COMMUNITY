@@ -75,8 +75,7 @@ print("K value that gives the main core: " + str(maxKValue))
 coreGraph = nx.Graph()
 for edge in mainCoreEdges:
 	coreGraph.add_edge(edge[0], edge[1])
-
-#drawGraph(coreGraph)
+# drawGraph(coreGraph)
 
 
 
@@ -94,6 +93,32 @@ Step 5 output:
 a) Number of nodes in the k-corona where k is the max k-val (main core kval)
 ##################################################'''
 print("\nNumber of nodes in the k-corona: " + str(len(nx.k_corona(G, k=maxKValue).nodes())))
+
+
+
+'''
+################################################
+Step 6 output:
+a) Number of nodes in the main shell
+##################################################'''
+mainShell = nx.k_shell(G).nodes()
+mainShellEdges = nx.k_shell(G).edges()
+print("\nNumber of nodes in main shell: " + str(len(mainShell)))
+
+#Create subgraph that contains just the main shell
+mainShellGraph = nx.Graph()
+for edge in mainShellEdges:
+	mainShellGraph.add_edge(edge[0], edge[1])
+# drawGraph(mainShellGraph)
+
+
+'''
+################################################
+Step 7 output:
+a) Display graph with red main core and blue main crust, no labels
+##################################################'''
+
+
 
 
 '''
