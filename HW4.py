@@ -52,6 +52,20 @@ print("Number of maximal cliques of largest size: " + str(ctr))
 
 
 '''
+################################################
+Step 3 output:
+a) No. of nodes in the main core
+b) K-value that gives the main core
+c) Display main core with nodes labeled
+##################################################'''
+mainCore = nx.k_core(G).nodes()
+print("Number of nodes in main core: " + str(len(mainCore)))
+
+
+
+
+
+'''
 #(1) Output Degree Stats
 def DegreeOutput(g):
 	#Init
