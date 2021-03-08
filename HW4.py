@@ -201,7 +201,7 @@ for node in G.nodes():
 
 '''
 #######################################################################
-Step 11 output: Girvan-Newman
+Step 10 output: Girvan-Newman
 a) Output the number of communities, the size of largest community, size of smallest community, and modularity of this partitioning
 #######################################################################'''
 components = c.girvan_newman(G)
@@ -239,10 +239,17 @@ print("The modularity of the Girvan-Newman partitioning is " + str(community.mod
 
 '''
 #######################################################################
-Step 12 output:
+Step 11 output:
 a) The Girvan-Newman graph color coded
 #######################################################################'''
+color_list = list()
+for node in G.nodes():
+	if(partitions[node] == 0):
+		color_list.append("Red")
+	elif(partitions[node] == 1):
+		color_list.append("Blue")
 
+drawGraph(G, color_list, False)
 
 
 '''
