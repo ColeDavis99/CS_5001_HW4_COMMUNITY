@@ -9,15 +9,116 @@ def drawGraph(g):
 	plt.axis('off')
 	plt.show()
 
-# Read in Data from file
+'''
+################################################
+Step 1:
+Create and display graph
+################################################'''
 fin=open("GameOfThrones.txt", 'rb')
 G = nx.read_edgelist('GameOfThrones.txt', nodetype=str, delimiter=",", data=(("weight", int),("season", int)))
 fin.close()
 
-# Part 1 display the graph
 #drawGraph(G)
 
-# Part 2 Output the number of maximal cliques, the largest maximal clique, and the number of max cliques of largest size.
+
+'''
+################################################
+Step 2 output:
+a) No. of maximal cliques
+b) Size of largest maximal clique
+c) No. of maximal cliques of the largest size
+##################################################'''
+maxCliques = nx.find_cliques(G)
+biggestClique = 0
+numBiggestCliques = 0
+
+ctr = 0
+for clique in maxCliques:
+	ctr += 1
+	if(len(clique) > biggestClique):
+		biggestClique = len(clique)	
+	
+print("Number of Maximal Cliques: " + str(ctr))
+print("Size of Largest Maximal Clique: " + str(biggestClique))
+
+#Could only loop through generator once, so just remake it
+maxCliques = nx.find_cliques(G)
+ctr=0
+for clique in maxCliques:
+	if(len(clique) == biggestClique):
+		ctr += 1
+print("Number of maximal cliques of largest size: " + str(ctr))
+
+
+
+'''
+################################################
+Step 3 output:
+a) No. of nodes in the main core
+b) K-value that gives the main core
+c) Display main core with nodes labeled
+##################################################'''
+mainCore = nx.k_core(G).nodes()
+mainCoreEdges = nx.k_core(G).edges()
+nodeCoreDict = nx.core.core_number(G)
+
+print("\nNumber of nodes in main core: " + str(len(mainCore)))
+
+maxKValue = 0
+for node in nodeCoreDict:
+	if(nodeCoreDict[node] > maxKValue):
+		maxKValue = nodeCoreDict[node]
+		
+print("K value that gives the main core: " + str(maxKValue))
+
+#Create subgraph that contains just the main core
+coreGraph = nx.Graph()
+for edge in mainCoreEdges:
+	coreGraph.add_edge(edge[0], edge[1])
+# drawGraph(coreGraph)
+
+
+
+'''
+################################################
+Step 4 output:
+a) Number of nodes in the main crust
+##################################################'''
+print("\nNumber of nodes in the main crust: " + str(len(nx.k_crust(G).nodes())))
+
+
+'''
+################################################
+Step 5 output:
+a) Number of nodes in the k-corona where k is the max k-val (main core kval)
+##################################################'''
+print("\nNumber of nodes in the k-corona: " + str(len(nx.k_corona(G, k=maxKValue).nodes())))
+
+
+
+'''
+################################################
+Step 6 output:
+a) Number of nodes in the main shell
+##################################################'''
+mainShell = nx.k_shell(G).nodes()
+mainShellEdges = nx.k_shell(G).edges()
+print("\nNumber of nodes in main shell: " + str(len(mainShell)))
+
+#Create subgraph that contains just the main shell
+mainShellGraph = nx.Graph()
+for edge in mainShellEdges:
+	mainShellGraph.add_edge(edge[0], edge[1])
+# drawGraph(mainShellGraph)
+
+
+'''
+################################################
+Step 7 output:
+a) Display graph with red main core and blue main crust, no labels
+##################################################'''
+
+
 
 
 '''
