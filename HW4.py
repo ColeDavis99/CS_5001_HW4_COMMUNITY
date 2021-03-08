@@ -9,15 +9,15 @@ def drawGraph(g):
 	plt.axis('off')
 	plt.show()
 
-#Read in Data from file
+# Read in Data from file
 fin=open("GameOfThrones.txt", 'rb')
 G = nx.read_edgelist('GameOfThrones.txt', nodetype=str, delimiter=",", data=(("weight", int),("season", int)))
 fin.close()
 
-for node1, node2, edge in (G.edges(data=True)):
-	print(node1, node2, edge["weight"])
+# Part 1 display the graph
+#drawGraph(G)
 
-drawGraph(G)
+# Part 2 Output the number of maximal cliques, the largest maximal clique, and the number of max cliques of largest size.
 
 
 '''
