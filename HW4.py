@@ -2,10 +2,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import math
 
-def drawGraph(g):
+def drawGraph(g, node_colors=["Red"], with_labels=True):
 	pos = nx.spring_layout(g)
 	plt.figure(figsize=(10,10))
-	nx.draw_networkx(g, pos=pos, with_labels=True)
+	nx.draw_networkx(g, pos=pos, with_labels=with_labels, node_color=node_colors)
 	plt.axis('off')
 	plt.show()
 
@@ -18,7 +18,7 @@ fin=open("GameOfThrones.txt", 'rb')
 G = nx.read_edgelist('GameOfThrones.txt', nodetype=str, delimiter=",", data=(("weight", int),("season", int)))
 fin.close()
 
-#drawGraph(G)
+drawGraph(G)
 
 
 '''
@@ -117,8 +117,29 @@ for edge in mainShellEdges:
 Step 7 output:
 a) Display graph with red main core and blue main crust, no labels
 ##################################################'''
+crustNodes = nx.k_crust(G).nodes()
+coreNodes = mainCore
+node_colors = list()
+
+#Create color list for displaying the graph
+for node in G.nodes():
+	if node in coreNodes:
+		node_colors.append("Red")
+	else:
+		node_colors.append("Blue")
+
+drawGraph(G, node_colors, False)
 
 
+'''
+node_color = list()
+
+pos = nx.spring_layout(g)
+plt.figure(figsize=(10,10))
+nx.draw_networkx(g, pos=pos, with_labels=True, node_color=node_color)
+plt.axis('off')
+plt.show()
+'''
 
 
 '''
